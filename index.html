@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D4RKBEN — Cybersécurité & Réseaux</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--green:#00FF46;--blue:#1A3C8F;--dark:#0a0a0a;--gray:#1a1a1a;--text:#e0e0e0}
+  body{background:var(--dark);color:var(--text);font-family:'Courier New',monospace;overflow-x:hidden}
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-thumb{background:#00FF46;border-radius:3px}
+  nav{position:fixed;top:0;width:100%;background:rgba(5,5,5,0.95);border-bottom:1px solid rgba(0,255,70,0.2);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(10px)}
+  .nav-logo{color:var(--green);font-size:20px;font-weight:bold;letter-spacing:3px;text-decoration:none}
+  .nav-logo span{color:#fff}
+  .nav-links{display:flex;gap:30px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;letter-spacing:2px;transition:color 0.3s}
+  .nav-links a:hover{color:var(--green)}
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:80px 20px 40px}
+  .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,70,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,70,0.04) 1px,transparent 1px);background-size:40px 40px}
+  .hero-content{position:relative;z-index:2}
+  .hero-tag{color:rgba(0,255,70,0.6);font-size:13px;letter-spacing:4px;margin-bottom:16px}
+  .hero-name{font-size:clamp(36px,8vw,72px);font-weight:900;font-family:Arial,sans-serif;color:#fff;margin-bottom:8px;animation:glitch 4s infinite}
+  .hero-pseudo{font-size:clamp(18px,4vw,32px);color:var(--green);letter-spacing:6px;margin-bottom:24px;font-weight:bold}
+  @keyframes glitch{0%,88%,100%{text-shadow:none}89%{text-shadow:-4px 0 #FF0000,4px 0 #0000FF}90%{text-shadow:4px 0 #FF0000,-4px 0 #0000FF}91%{text-shadow:none}}
+  .hero-desc{font-size:16px;color:rgba(255,255,255,0.5);max-width:600px;margin:0 auto 40px;line-height:1.8;font-family:Arial,sans-serif}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:12px 28px;border-radius:4px;font-size:13px;font-weight:bold;letter-spacing:2px;text-decoration:none;transition:all 0.3s;font-family:'Courier New',monospace}
+  .btn-primary{background:var(--green);color:#000}
+  .btn-primary:hover{background:#00cc38;transform:translateY(-2px)}
+  .btn-secondary{background:transparent;color:var(--green);border:1px solid var(--green)}
+  .btn-secondary:hover{background:rgba(0,255,70,0.1);transform:translateY(-2px)}
+  .hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+  .badge{padding:6px 16px;border-radius:20px;font-size:11px;letter-spacing:2px;border:1px solid rgba(0,255,70,0.3);color:rgba(0,255,70,0.7)}
+  section{padding:80px 40px;max-width:1100px;margin:0 auto}
+  .section-tag{color:var(--green);font-size:12px;letter-spacing:4px;margin-bottom:8px}
+  .section-title{font-size:clamp(24px,4vw,36px);font-weight:900;font-family:Arial,sans-serif;color:#fff;margin-bottom:8px}
+  .section-line{width:60px;height:3px;background:var(--green);margin-bottom:40px}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .about-text p{color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:16px;font-family:Arial,sans-serif;font-size:15px}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat-card{background:var(--gray);border:1px solid rgba(0,255,70,0.2);border-radius:8px;padding:20px;text-align:center}
+  .stat-num{font-size:36px;font-weight:900;color:var(--green);font-family:Arial,sans-serif}
+  .stat-label{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-top:4px}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .skill-card{background:var(--gray);border:1px solid rgba(0,255,70,0.15);border-radius:8px;padding:24px;transition:all 0.3s}
+  .skill-card:hover{border-color:var(--green);transform:translateY(-4px)}
+  .skill-icon{font-size:28px;margin-bottom:12px}
+  .skill-title{color:#fff;font-weight:bold;font-family:Arial,sans-serif;margin-bottom:12px;font-size:15px}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .skill-tag{padding:4px 10px;background:rgba(0,255,70,0.08);border:1px solid rgba(0,255,70,0.2);border-radius:3px;font-size:11px;color:rgba(0,255,70,0.8)}
+  .ctf-grid{display:grid;gap:16px}
+  .ctf-card{background:var(--gray);border:1px solid rgba(0,255,70,0.15);border-radius:8px;padding:24px;display:flex;align-items:center;gap:20px;transition:all 0.3s}
+  .ctf-card:hover{border-color:var(--green);transform:translateX(8px)}
+  .ctf-status{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .status-done{background:rgba(0,255,70,0.1);border:2px solid var(--green)}
+  .status-progress{background:rgba(255,165,0,0.1);border:2px solid orange}
+  .status-planned{background:rgba(26,60,143,0.2);border:2px solid #1A3C8F}
+  .ctf-info{flex:1}
+  .ctf-name{color:#fff;font-weight:bold;font-family:Arial,sans-serif;font-size:16px;margin-bottom:4px}
+  .ctf-platform{color:rgba(0,255,70,0.6);font-size:12px;letter-spacing:2px;margin-bottom:8px}
+  .ctf-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .ctf-tag{padding:3px 10px;background:rgba(255,255,255,0.05);border-radius:3px;font-size:11px;color:rgba(255,255,255,0.5)}
+  .ctf-result{text-align:right;flex-shrink:0}
+  .ctf-flags{color:var(--green);font-weight:bold;font-size:18px;font-family:Arial,sans-serif}
+  .ctf-sub{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .project-card{background:var(--gray);border:1px solid rgba(0,255,70,0.15);border-radius:8px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),#1A3C8F)}
+  .project-card:hover{border-color:var(--green);transform:translateY(-4px)}
+  .project-icon{font-size:32px;margin-bottom:16px}
+  .project-title{color:#fff;font-weight:bold;font-family:Arial,sans-serif;font-size:18px;margin-bottom:8px}
+  .project-desc{color:rgba(255,255,255,0.6);font-family:Arial,sans-serif;font-size:14px;line-height:1.7;margin-bottom:16px}
+  .contact-wrapper{background:var(--gray);border:1px solid rgba(0,255,70,0.2);border-radius:12px;padding:48px;text-align:center}
+  .contact-title{color:#fff;font-size:28px;font-weight:900;font-family:Arial,sans-serif;margin-bottom:12px}
+  .contact-sub{color:rgba(255,255,255,0.5);font-family:Arial,sans-serif;margin-bottom:32px}
+  .contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .contact-link{padding:12px 24px;border-radius:4px;font-size:13px;letter-spacing:2px;text-decoration:none;font-family:'Courier New',monospace;transition:all 0.3s;border:1px solid rgba(0,255,70,0.3);color:var(--green)}
+  .contact-link:hover{background:rgba(0,255,70,0.1);transform:translateY(-2px)}
+  footer{border-top:1px solid rgba(0,255,70,0.1);padding:24px 40px;text-align:center}
+  footer p{color:rgba(255,255,255,0.3);font-size:13px;letter-spacing:2px}
+  footer span{color:var(--green)}
+  .cursor{display:inline-block;width:10px;height:20px;background:var(--green);animation:blink 1s infinite;vertical-align:middle;margin-left:4px}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .wide-section{background:rgba(255,255,255,0.01);border-top:1px solid rgba(0,255,70,0.05);border-bottom:1px solid rgba(0,255,70,0.05);padding:80px 40px}
+  .wide-inner{max-width:1100px;margin:0 auto}
+  @media(max-width:768px){nav{padding:12px 20px}.nav-links{display:none}section{padding:60px 20px}.about-grid{grid-template-columns:1fr}.ctf-card{flex-direction:column;text-align:center}.ctf-result{text-align:center}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">D4RK<span>BEN</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">À PROPOS</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#ctf">CTF</a></li>
+    <li><a href="#projects">PROJETS</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-content">
+    <p class="hero-tag">// ETHICAL HACKER // ABIDJAN 🇨🇮</p>
+    <h1 class="hero-name">MEITE BEN IBRAHIM</h1>
+    <p class="hero-pseudo">[ D4RKBEN ]<span class="cursor"></span></p>
+    <p class="hero-desc">Spécialiste Réseaux & Cybersécurité | 3 ans d'expérience | Pentest | Audit Sécurité | CTF Player</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">ME CONTACTER</a>
+      <a href="#ctf" class="btn btn-secondary">VOIR MES CTF</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">KALI LINUX</span>
+      <span class="badge">NMAP</span>
+      <span class="badge">BURP SUITE</span>
+      <span class="badge">FORTINET</span>
+      <span class="badge">OWASP</span>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <p class="section-tag">// 01. À PROPOS</p>
+  <h2 class="section-title">Qui suis-je ?</h2>
+  <div class="section-line"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Passionné de cybersécurité basé à Abidjan 🇨🇮, titulaire d'une Licence en Réseaux et Infrastructures Télécoms (RIT) avec 3 ans d'expérience en administration réseaux, sécurité IT et support technique.</p>
+      <p>Pratiquant actif du CTF, je m'entraîne sur VulnHub, TryHackMe et Hack The Box pour maintenir mes compétences en pentest à un niveau élevé.</p>
+      <p>Mon objectif : contribuer à la sécurisation des infrastructures IT des entreprises africaines avec des solutions locales et adaptées.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">ANS D'EXP.</div></div>
+      <div class="stat-card"><div class="stat-num">3/3</div><div class="stat-label">FLAGS MR ROBOT</div></div>
+      <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">VULNÉRABILITÉS DÉTECTÉES</div></div>
+      <div class="stat-card"><div class="stat-num">CI</div><div class="stat-label">CÔTE D'IVOIRE 🇨🇮</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wide-section" id="skills">
+  <div class="wide-inner">
+    <p class="section-tag">// 02. COMPÉTENCES</p>
+    <h2 class="section-title">Stack Technique</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-title">Réseaux</div>
+        <div class="skill-tags">
+          <span class="skill-tag">TCP/IP</span><span class="skill-tag">VPN</span><span class="skill-tag">VLAN</span>
+          <span class="skill-tag">DNS/DHCP</span><span class="skill-tag">Firewall</span><span class="skill-tag">Wi-Fi</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔐</div>
+        <div class="skill-title">Cybersécurité</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Pentest</span><span class="skill-tag">OWASP</span><span class="skill-tag">Audit</span>
+          <span class="skill-tag">Reverse Shell</span><span class="skill-tag">Hash Cracking</span><span class="skill-tag">Fortinet</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-title">Systèmes</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Kali Linux</span><span class="skill-tag">Debian</span>
+          <span class="skill-tag">Windows Server</span><span class="skill-tag">Active Directory</span><span class="skill-tag">Shell Script</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-title">Outils Pentest</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Nmap</span><span class="skill-tag">Gobuster</span>
+          <span class="skill-tag">WPScan</span><span class="skill-tag">Netcat</span>
+          <span class="skill-tag">Wireshark</span><span class="skill-tag">Burp Suite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="ctf">
+  <p class="section-tag">// 03. CTF & LABS</p>
+  <h2 class="section-title">Challenges Complétés</h2>
+  <div class="section-line"></div>
+  <div class="ctf-grid">
+    <div class="ctf-card">
+      <div class="ctf-status status-done">✅</div>
+      <div class="ctf-info">
+        <div class="ctf-name">Mr Robot</div>
+        <div class="ctf-platform">VULNHUB</div>
+        <div class="ctf-tags">
+          <span class="ctf-tag">Nmap</span><span class="ctf-tag">Gobuster</span><span class="ctf-tag">WPScan</span>
+          <span class="ctf-tag">Reverse Shell</span><span class="ctf-tag">SUID PrivEsc</span>
+        </div>
+      </div>
+      <div class="ctf-result">
+        <div class="ctf-flags">3/3 🚩</div>
+        <div class="ctf-sub">FLAGS</div>
+      </div>
+    </div>
+    <div class="ctf-card">
+      <div class="ctf-status status-progress">⏳</div>
+      <div class="ctf-info">
+        <div class="ctf-name">DC-1</div>
+        <div class="ctf-platform">VULNHUB</div>
+        <div class="ctf-tags">
+          <span class="ctf-tag">Drupal</span><span class="ctf-tag">Metasploit</span><span class="ctf-tag">Privilege Escalation</span>
+        </div>
+      </div>
+      <div class="ctf-result">
+        <div class="ctf-flags" style="color:orange">EN COURS</div>
+        <div class="ctf-sub">IN PROGRESS</div>
+      </div>
+    </div>
+    <div class="ctf-card">
+      <div class="ctf-status status-planned">🎯</div>
+      <div class="ctf-info">
+        <div class="ctf-name">TryHackMe & Hack The Box</div>
+        <div class="ctf-platform">TRYHACKME.COM / HACKTHEBOX.COM</div>
+        <div class="ctf-tags">
+          <span class="ctf-tag">Blue</span><span class="ctf-tag">Ignite</span><span class="ctf-tag">Bashed</span><span class="ctf-tag">Nibbles</span>
+        </div>
+      </div>
+      <div class="ctf-result">
+        <div class="ctf-flags" style="color:#4D96FF">PLANIFIÉ</div>
+        <div class="ctf-sub">COMING SOON</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wide-section" id="projects">
+  <div class="wide-inner">
+    <p class="section-tag">// 04. PROJETS</p>
+    <h2 class="section-title">Réalisations</h2>
+    <div class="section-line"></div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🔍</div>
+        <div class="project-title">Audit Sécurité Web</div>
+        <div class="project-desc">Audit d'une application web d'une entreprise ivoirienne. 7 vulnérabilités dont 3 critiques. Rapport professionnel livré avec recommandations correctives.</div>
+        <div class="skill-tags"><span class="skill-tag">Nmap</span><span class="skill-tag">Gobuster</span><span class="skill-tag">WPScan</span><span class="skill-tag">OWASP</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">⚡</div>
+        <div class="project-title">CIE Alerte — App Mobile</div>
+        <div class="project-desc">Application mobile de signalement communautaire des coupures électriques à Abidjan. Carte temps réel et notifications push par quartier.</div>
+        <div class="skill-tags"><span class="skill-tag">React Native</span><span class="skill-tag">Firebase</span><span class="skill-tag">Maps API</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">📖</div>
+        <div class="project-title">Ebook — Prompts IA</div>
+        <div class="project-desc">Guide sur l'utilisation de l'IA pour faire ses premières ventes en ligne. Plus de 615 clients. Revenus : 1 280 783 FCFA.</div>
+        <div class="skill-tags"><span class="skill-tag">Marketing Digital</span><span class="skill-tag">IA</span><span class="skill-tag">E-commerce</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact">
+  <p class="section-tag">// 05. CONTACT</p>
+  <h2 class="section-title">Me Contacter</h2>
+  <div class="section-line"></div>
+  <div class="contact-wrapper">
+    <div class="contact-title">Travaillons ensemble ! 🚀</div>
+    <div class="contact-sub">Disponible pour des missions d'audit, pentest, administration réseaux ou conseil cybersécurité à Abidjan et en remote.</div>
+    <div class="contact-links">
+      <a href="mailto:votre@email.com" class="contact-link">📧 EMAIL</a>
+      <a href="https://linkedin.com/in/D4RKBEN" class="contact-link" target="_blank">💼 LINKEDIN</a>
+      <a href="https://github.com/benlil2424-netizen" class="contact-link" target="_blank">🐙 GITHUB</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Conçu par <span>D4RKBEN</span> — MEITE BEN IBRAHIM — Abidjan 🇨🇮 — 2026</p>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
